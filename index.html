@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BK Shop — Camisolas de Fútbol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="default">
+
+<!-- BARRA DE PROGRESO -->
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo">BK<span>SHOP</span></a>
+  <nav class="nav__links" id="navLinks">
+    <a href="#barcelona" data-target="barcelona">Barcelona</a>
+    <a href="#real-madrid" data-target="real-madrid">Real Madrid</a>
+    <a href="#retro" data-target="retro">Retros</a>
+    <a href="#messi" data-target="messi">Leo Messi</a>
+    <a href="#cr7" data-target="cr7">CR7</a>
+    <span class="nav__underline" id="navUnderline"></span>
+  </nav>
+  <a class="nav__cta" href="#" data-wa data-wa-text="Hola BK Shop, quiero ver el catálogo" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true">
+    <img src="img/bkshop-logo-fondo.png" alt="">
+  </div>
+  <p class="hero__eyebrow">Guatemala · Fútbol · Colección 2026</p>
+  <h1 class="hero__logo">BK<span>SHOP</span></h1>
+  <p class="hero__sub">Titulares, visitantes y ediciones retro de tus equipos favoritos. Stock real, tallas M, L y XL, entrega en Guatemala.</p>
+  <a href="#barcelona" class="hero__scroll">
+    <span>Ver catálogo</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M7 1V19M7 19L1 13M7 19L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="tickerTrack"></div>
+</div>
+
+<main>
+
+  <!-- FC BARCELONA -->
+  <section class="team-section" id="barcelona" data-team="barcelona" data-theme-trigger="barcelona">
+    <div class="team-section__number" aria-hidden="true">01</div>
+    <div class="team-section__head">
+      <h2 class="team-section__title">FC Barcelona</h2>
+      <p class="team-section__note">Camisola titular y visitante, disponibles en todas las tallas.</p>
+    </div>
+    <div class="grid grid--kits" id="grid-barcelona"></div>
+  </section>
+
+  <!-- REAL MADRID -->
+  <section class="team-section" id="real-madrid" data-team="real-madrid" data-theme-trigger="real-madrid">
+    <div class="team-section__number" aria-hidden="true">02</div>
+    <div class="team-section__head">
+      <h2 class="team-section__title">Real Madrid</h2>
+      <p class="team-section__note">Camisola titular y visitante, disponibles en todas las tallas.</p>
+    </div>
+    <div class="grid grid--kits" id="grid-real-madrid"></div>
+  </section>
+
+  <!-- RETROS GENERAL -->
+  <section class="team-section team-section--retro" id="retro" data-team="retro" data-theme-trigger="retro">
+    <div class="team-section__number" aria-hidden="true">03</div>
+    <div class="team-section__head">
+      <h2 class="team-section__title">Retros</h2>
+      <p class="team-section__note">Clubes y épocas históricas, edición vintage.</p>
+    </div>
+    <div class="grid" id="grid-retro"></div>
+  </section>
+
+  <!-- LEO MESSI -->
+  <section class="team-section team-section--player" id="messi" data-team="messi" data-theme-trigger="messi">
+    <div class="team-section__number" aria-hidden="true">04</div>
+    <div class="team-section__head">
+      <h2 class="team-section__title">Leo Messi</h2>
+      <p class="team-section__note">Camisolas del 10 en sus distintos clubes y selección.</p>
+    </div>
+    <div class="grid" id="grid-messi"></div>
+  </section>
+
+  <!-- CR7 -->
+  <section class="team-section team-section--player" id="cr7" data-team="cr7" data-theme-trigger="cr7">
+    <div class="team-section__number" aria-hidden="true">05</div>
+    <div class="team-section__head">
+      <h2 class="team-section__title">CR7</h2>
+      <p class="team-section__note">Camisolas de Cristiano Ronaldo en sus distintos clubes y selección.</p>
+    </div>
+    <div class="grid" id="grid-cr7"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <p class="footer__brand">BK<span>SHOP</span></p>
+    <p class="footer__line" data-precio-desde>Precios desde Q299 por camisola · Pedidos por WhatsApp</p>
+  </div>
+  <a class="footer__cta" href="#" data-wa data-wa-text="Hola BK Shop, quiero hacer un pedido" target="_blank" rel="noopener">Escríbenos →</a>
+</footer>
+
+<!-- LIGHTBOX DE GALERÍA (5 fotos por camisola) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Anterior">&#10094;</button>
+  <div class="lightbox__stage">
+    <img src="" alt="" id="lightboxImg">
+  </div>
+  <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Siguiente">&#10095;</button>
+  <div class="lightbox__thumbs" id="lightboxThumbs"></div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
