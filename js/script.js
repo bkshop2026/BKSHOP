@@ -56,9 +56,9 @@ const WHATSAPP = "50233174212";   // <-- CAMBIA ESTE NÚMERO POR EL TUYO
 const PRECIOS = {
   barcelona:     299,
   "real-madrid": 299,
-  retro:         350,
-  messi:         350,
-  cr7:           350,
+  retro:         325,
+  messi:         325,
+  cr7:           325,
 };
 
 // Precio más bajo que se anuncia en la banda y en el pie de página.
@@ -114,13 +114,21 @@ const productos = {
   ],
   messi: [
     { nombre: "Messi · Barcelona", dorsal: 10 },
+    { nombre: "Messi · Argentina", dorsal: 10 },
     { nombre: "Messi · Argentina", dorsal: 19 },
-    { nombre: "Messi · Barcelona", dorsal: 10 },
   ],
   cr7: [
     { nombre: "CR7 · Real Madrid", dorsal: 7 },
     { nombre: "CR7 · Portugal", dorsal: 7 },
     { nombre: "CR7 · Manchester United", dorsal: 7 },
+  ],
+  // Pieza destacada que se muestra sola, arriba de todo, con trato especial.
+  destacado: [
+    {
+      nombre: "Messi · Retiro con la Selección Argentina Oferta solo en la web",
+      dorsal: 10,
+      precio: 300,
+    },
   ],
 };
 
@@ -173,6 +181,7 @@ asignarFotos(productos["real-madrid"], "real-madrid");
 asignarFotos(productos.retro, "retro", PARTES_FOTO_4);
 asignarFotos(productos.messi, "messi", PARTES_FOTO_4);
 asignarFotos(productos.cr7, "cr7", PARTES_FOTO_4);
+asignarFotos(productos.destacado, "destacado", PARTES_FOTO_4);
 
 // Imprime en consola la lista exacta de archivos que espera cada camisola,
 // para que sea fácil saber cómo nombrar cada foto antes de subirla.
@@ -192,6 +201,7 @@ const colores = {
   retro: { base: "#8B6A45", raya: "#C9A66B" },
   messi: { base: "#75AADB", raya: "#F3F2EE" },
   cr7: { base: "#7A1F1F", raya: "#C9A227" },
+  destacado: { base: "#75AADB", raya: "#F3F2EE" },
 };
 
 // ---------- 2b. DIBUJO DE CAMISOLA (placeholder SVG) ----------
@@ -288,6 +298,54 @@ renderGrid("grid-real-madrid", productos["real-madrid"]);
 renderGrid("grid-retro", productos.retro, colores.retro.base, colores.retro.raya);
 renderGrid("grid-messi", productos.messi, colores.messi.base, colores.messi.raya);
 renderGrid("grid-cr7", productos.cr7, colores.cr7.base, colores.cr7.raya);
+
+// ---------- 3b. RENDER DE LA PIEZA DESTACADA (arriba de todo) ----------
+// Usa su propio bloque, más grande y con trato especial, en vez de una
+// tarjeta normal de la grilla.
+function renderFeatured(containerId, producto, base, raya) {
+  const el = document.getElementById(containerId);
+  if (!el || !producto) return;
+  const p = producto;
+  const artId = `${containerId}-art`;
+
+  const arte = `<div class="card__art card__art--gallery" id="${artId}" data-fotos='${JSON.stringify(p.fotos)}' data-partes='${JSON.stringify(p.partes)}' data-index="0">
+       <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${FOTO_PLACEHOLDER}'">
+     </div>
+     <div class="card__thumbs" style="grid-template-columns: repeat(${p.fotos.length}, 1fr);">
+       ${p.fotos.map((foto, idx) => `
+         <button type="button" class="card__thumb ${idx === 0 ? "is-active" : ""}" data-art="${artId}" data-index="${idx}" title="${p.partes[idx]}">
+           <img src="${foto}" alt="${p.nombre} — ${p.partes[idx]}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${FOTO_PLACEHOLDER}'">
+         </button>
+       `).join("")}
+     </div>`;
+
+  const tallas = Array.isArray(p.tallas) ? p.tallas : [];
+  const listaTallas = tallas.join(", ");
+  const mensajeWhatsapp = `Hola! Me interesa la camisola de colección: ${p.nombre} (Q${p.precio}). Tallas disponibles: ${listaTallas}.`;
+
+  el.innerHTML = `
+    <div class="featured__art">${arte}</div>
+    <div class="featured__info">
+      <p class="featured__eyebrow">Edición limitada · Selección Argentina</p>
+      <h2 class="featured__name">${p.nombre}</h2>
+      <p class="featured__meta">Dorsal #${p.dorsal} · Partido de despedida</p>
+      <div class="card__sizes">
+        <span class="card__sizes-label">Tallas</span>
+        ${tallas.map(t => `<span class="card__size">${t}</span>`).join("")}
+      </div>
+      <div class="featured__row">
+        <span class="featured__price">Q${p.precio}</span>
+        <a class="featured__buy" target="_blank" rel="noopener"
+           href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensajeWhatsapp)}">
+          Pedir esta pieza
+        </a>
+      </div>
+    </div>
+  `;
+  wireGallery(el);
+}
+
+renderFeatured("featured-content", productos.destacado[0], colores.destacado.base, colores.destacado.raya);
 
 // ---------- 4. TICKER ----------
 const tickerData = ["FC Barcelona", "Real Madrid", "Retros", "Leo Messi", "CR7", "Envíos a todo Guatemala", `Precios desde Q${PRECIO_DESDE}`, `Tallas ${TALLAS.join(" · ")}`];
